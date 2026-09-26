@@ -23,18 +23,26 @@ test.describe("sauce labs tests", () => {
     //     await page.waitForTimeout(3000);
     // })
 
-    test("verify dynamic add to cart button and badge", async ({ page }) => {
+    // test("verify dynamic add to cart button and badge", async ({ page }) => {
+    //     dashboard = new DashboardPage(page);
+    //     const firstAddToCart = page.locator(".btn_inventory").first()
+    //     const cart = page.locator(".shopping_cart_badge")
+    //     await expect(firstAddToCart).toBeVisible();
+    //     await expect(firstAddToCart).toHaveText("Add to cart");
+    //     await firstAddToCart.click();
+    //     await expect(firstAddToCart).toHaveText('Remove');
+
+    //   await  expect(cart).toBeVisible()
+    //   await  expect(cart).toHaveText('1');
+    //     await page.waitForTimeout(3000);
+
+    // })
+
+    test("verify sort functionality", async({page})=>{
         dashboard = new DashboardPage(page);
-        const firstAddToCart = page.locator(".btn_inventory").first()
-        const cart = page.locator(".shopping_cart_badge")
-        await expect(firstAddToCart).toBeVisible();
-        await expect(firstAddToCart).toHaveText("Add to cart");
-        await firstAddToCart.click();
-        await expect(firstAddToCart).toHaveText('Remove');
-
-      await  expect(cart).toBeVisible()
-      await  expect(cart).toHaveText('1');
-        await page.waitForTimeout(3000);
-
+        await dashboard.sortProducts("lohi");
+        const priceOfProducts =  await page.locator(".inventory_item_price").allTextContents();
+        expect(priceOfProducts[0]).toBe("$7.99");
+        // await page.waitForTimeout(3000);
     })
 });
